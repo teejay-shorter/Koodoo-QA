@@ -6,12 +6,14 @@
 
 The bugs I found were as follows:
 
-1. **2dp on Returned Results**
-   The results being returned from the `analysePayments()` function should all be rounded to two decimal places as per the third bullet point in [the solution](https://github.com/teejay-shorter/Koodoo-QA#the-solution) section
-   _Expected Behaviour_
-   `analysePayments()` should return all values rounded to two decimal places (unless the value is a whole number or ends in a 0):
+### 2dp on Returned Results
 
-````
+The results being returned from the `analysePayments()` function should all be rounded to two decimal places as per the third bullet point in [the solution](https://github.com/teejay-shorter/Koodoo-QA#the-solution) section
+
+_Expected Behaviour_
+`analysePayments()` should return all values rounded to two decimal places (unless the value is a whole number or ends in a 0):
+
+```
 {
   max: 4,
   mean: 2.5,
@@ -19,11 +21,12 @@ The bugs I found were as follows:
   min: 1,
   standardDeviation: 1.12,
 }
-  ```
+```
+
 _Actual Behaviour_
 `Min`, `Max` and `Median` do not currently have rounding applied to the values giving the following format for the response:
-````
 
+```
 {
 max: 9.12345,
 mean: 2.55,
@@ -31,7 +34,11 @@ median: 9.12345,
 min: 9.12345,
 standardDeviation: 2.55,
 }
-```2. **Null values are being sanitised to 0** When calling`sanitizeAmounts()` with data that contains a Null value, it is being converted to a 0
+```
+
+### Null values are being sanitised to 0
+
+When calling`sanitizeAmounts()` with data that contains a Null value, it is being converted to a 0
 
 ```
 [
@@ -39,11 +46,12 @@ standardDeviation: 2.55,
     Amount: null,
     TransactionInformation: 'Koodoo Mortgage Co.',
   },
-		]
+]
 ```
 
-3. **Empty values are being sanitised to 0**
-   Same as the previous defect. The same issue is encountered when the following data is used
+### Empty values are being sanitised to 0
+
+Same as the previous defect. The same issue is encountered when the following data is used
 
 ```
 [
@@ -51,11 +59,12 @@ standardDeviation: 2.55,
     Amount: '',
     TransactionInformation: 'Koodoo Mortgage Co.',
   },
-		]
+]
 ```
 
-4. **Symbols are not handled correctly when sanitising data**
-   When `sanitizeAmounts()` encounters a symbol such as "£", it will convert the entire value to `NaN`. This causes the accompanying number to be lost in the sanitisation as well as creating an array with an incompatible value for the rest of the app.
+### Symbols are not handled correctly when sanitising data
+
+When `sanitizeAmounts()` encounters a symbol such as "£", it will convert the entire value to `NaN`. This causes the accompanying number to be lost in the sanitisation as well as creating an array with an incompatible value for the rest of the app.
 
 ```
 [
@@ -63,7 +72,7 @@ standardDeviation: 2.55,
     Amount: '£750',
     TransactionInformation: 'Koodoo Mortgage Co.',
   },
-		]
+]
 ```
 
 ---
